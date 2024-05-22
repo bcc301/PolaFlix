@@ -1,20 +1,18 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDate;
+import java.sql.Date;
 
-public class Factura {
+public class Factura implements Comparable<Factura> {
 
-    private final long id;
+	private long id;
 	private double importeTotal;
-	private LocalDate fecha;
+	private Date fecha;
 
 	private ArrayList<VisualizacionSerie> entradasFactura;
 	private Usuario usuario;
 
-	public Factura(long id, LocalDate fecha, Usuario usuario) {
-		this.id = id;
+	public Factura(Date fecha, Usuario usuario) {
 		this.fecha = fecha;
 		this.usuario = usuario;
 		this.importeTotal = 0;
@@ -25,18 +23,12 @@ public class Factura {
 
 	public void añadirVisualizacionCapituloAFactura(VisualizacionSerie visualizacion) {}
 
-	/* GETTERS Y SETTERS */
-
-	public int getMes() {
-		return fecha.getMonthValue();
-	}
-
-	public int getYear() {
-		return fecha.getYear();
-	}
-
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public double getImporteTotal() {
@@ -47,15 +39,15 @@ public class Factura {
 		this.importeTotal = importeTotal;
 	}
 
-	public LocalDate getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
-	public List<VisualizacionSerie> getEntradasFactura() {
+	public ArrayList<VisualizacionSerie> getEntradasFactura() {
 		return entradasFactura;
 	}
 
@@ -70,5 +62,29 @@ public class Factura {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-    
+
+	@Override
+	public int compareTo(Factura fact) {
+		return Long.compare(this.id, fact.getId());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		
+		Factura fact;
+
+		if (!(o instanceof Factura)) {
+			return false;
+		} else {
+			fact = (Factura) o;
+		}
+
+		return this.id == fact.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
+
 }

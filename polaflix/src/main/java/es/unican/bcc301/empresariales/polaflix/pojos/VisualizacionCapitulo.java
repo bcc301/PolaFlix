@@ -2,7 +2,7 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.time.LocalDate;
 
-public class VisualizacionCapitulo {
+public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> {
 
     private LocalDate fechaVisualizacion;
 	private int numTemporada;
@@ -20,7 +20,39 @@ public class VisualizacionCapitulo {
 		this.usuario = usuario;
 	}
 
+	@Override
+	public int compareTo(VisualizacionCapitulo vc) {
+
+		if (this.numTemporada == vc.getNumTemporada()) {
+			return this.numCapitulo - vc.getNumCapitulo();
+		} else {
+			return this.numTemporada - vc.getNumTemporada();
+		}
+	}
+
 	/* METODOS DE NEGOCIO */
+
+	@Override
+	public boolean equals(Object o) {
+
+		VisualizacionCapitulo vc;
+
+		if (!(o instanceof VisualizacionCapitulo)) {
+			return false;
+		} else {
+			vc = (VisualizacionCapitulo) o;
+		}
+		
+		return this.fechaVisualizacion.equals(vc.getFechaVisualizacion()) &&
+			this.numTemporada == vc.getNumTemporada() &&
+				this.numTemporada == vc.getNumTemporada();
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return this.fechaVisualizacion.hashCode() * this.numCapitulo * this.numTemporada;
+	}
 
 	public float getPrecioVisualizacion() { return 0;}
 

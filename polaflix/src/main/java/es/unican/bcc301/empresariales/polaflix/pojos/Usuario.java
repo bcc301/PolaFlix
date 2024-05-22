@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Usuario {
 
-    private final long id;
+	private long id;
+	private String email; 
 	private String nombreUsuario;
 	private String contraseña;
 	private String cuentaBancaria;
@@ -19,8 +20,8 @@ public class Usuario {
 	private List<Capitulo> capitulosVistos;
 	private List<Serie> visualizacionesSeries;
 
-	public Usuario(long id, String nombreUsuario, String contraseña, String cuentaBancaria, boolean granConsumidor) {
-		this.id = id;
+	public Usuario(String email, long id, String nombreUsuario, String contraseña, String cuentaBancaria, boolean granConsumidor) {
+		this.email = email;
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
 		this.cuentaBancaria = cuentaBancaria;
@@ -46,10 +47,42 @@ public class Usuario {
 
 	// TODO: queda pendiente el metodo verFacturas() que no se si hara falta
 
+	
 	/* GETTERS Y SETTERS */
+
+	@Override
+	public boolean equals(Object o) {
+		
+		Usuario u;
+
+		if (!(o instanceof Usuario)) {
+			return false;
+		} else {
+			u = (Usuario) o;
+		}
+
+		return this.id == u.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.email.hashCode() + this.nombreUsuario.hashCode();
+	}
 
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNombreUsuario() {
@@ -131,5 +164,5 @@ public class Usuario {
 	public void setVisualizacionesSeries(List<Serie> visualizacionesSeries) {
 		this.visualizacionesSeries = visualizacionesSeries;
 	}
-    
+
 }

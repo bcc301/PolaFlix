@@ -1,6 +1,6 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
-public class VisualizacionSerie {
+public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
 
     private int numUltCapVisto;
     private int numTempUltCap;
@@ -13,6 +13,40 @@ public class VisualizacionSerie {
         this.numTempUltCap = numTempUltCap;
         this.usuario = usuario;
         this.serie = serie;
+    }
+
+    @Override
+    public int compareTo(VisualizacionSerie vs) {
+
+        if (this.numTempUltCap == vs.numTempUltCap) {
+            return this.numUltCapVisto - vs.getNumUltCapVisto();
+        } else {
+            return this.numTempUltCap - vs.getNumTempUltCap();
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+
+        VisualizacionSerie vs;
+
+        if (!(o instanceof VisualizacionSerie)) {
+            return false;
+        } else {
+            vs = (VisualizacionSerie) o;
+        }
+
+        return this.usuario.equals(vs.getUsuario()) &&
+            this.serie.equals(vs.getSerie()) &&
+                this.numUltCapVisto == vs.getNumTempUltCap() &&
+                    this.numTempUltCap == vs.getNumTempUltCap();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.usuario.hashCode() + this.serie.hashCode() *
+            this.numTempUltCap * this.numUltCapVisto;
     }
 
     /* METODOS DE NEGOCIO */
@@ -52,5 +86,4 @@ public class VisualizacionSerie {
         this.serie = serie;
     }
 
-    
 }

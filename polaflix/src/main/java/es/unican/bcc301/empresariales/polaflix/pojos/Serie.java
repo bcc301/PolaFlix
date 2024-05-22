@@ -1,60 +1,37 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-enum TipoSerie {
-	STANDARD,
-	SILVER,
-	GOLD
-}
+public class Serie implements Comparable<Serie> {
 
-public class Serie {
-
-    private final long id;
+	private long id;
 	private String nombreSerie;
 	private int numTotalCapitulos;
 	private String sinopsis;
-	private float precioCapitulo;
 
 	private Set<TrabajadorSerie> actoresPrincipales;
 	private Set<TrabajadorSerie> creadores;
 	private List<Temporada> temporadas;
+	private Categoria categoria;
 
-	private TipoSerie tipoSerie;
-
-	private static final double precioEstandar = 0.50;
-	private static final double precioSilver = 0.75;
-	private static final double precioGold = 1.50;
-	
-	public Serie(long id, String nombreSerie, String sinopsis, TipoSerie tipoSerie) {
-		this.id = id;
+	public Serie(String nombreSerie, int numTotalCapitulos, String sinopsis, Categoria categoria) {
 		this.nombreSerie = nombreSerie;
+		this.numTotalCapitulos = numTotalCapitulos;
 		this.sinopsis = sinopsis;
-		this.tipoSerie = tipoSerie;
-
-		actoresPrincipales = new HashSet<>();
-		creadores = new HashSet<>();
-		temporadas = new ArrayList<>();
-
-		//TODO: numTotalCaps y precioCapitulo
+		this.categoria = categoria;
 	}
-
-	/* METODOS DE NEGOCIO */
-
 
 	public void anadirCapitulo(Capitulo cap) {}
 
 	public void eliminarCapitulo(Capitulo cap) {}
 
-	// TODO: buscaCapitulo
-
-	/* GETTERS Y SETTERS */
-
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getNombreSerie() {
@@ -81,14 +58,6 @@ public class Serie {
 		this.sinopsis = sinopsis;
 	}
 
-	public float getPrecioCapitulo() {
-		return precioCapitulo;
-	}
-
-	public void setPrecioCapitulo(float precioCapitulo) {
-		this.precioCapitulo = precioCapitulo;
-	}
-
 	public Set<TrabajadorSerie> getActoresPrincipales() {
 		return actoresPrincipales;
 	}
@@ -113,12 +82,35 @@ public class Serie {
 		this.temporadas = temporadas;
 	}
 
-	public TipoSerie getTipoSerie() {
-		return tipoSerie;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoSerie(TipoSerie tipoSerie) {
-		this.tipoSerie = tipoSerie;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-    
+
+	@Override
+	public int compareTo(Serie s) {
+		return Long.compare(this.id, s.getId());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		
+		Serie s;
+
+		if (!(o instanceof Serie)) {
+			return false;
+		} else {
+			s = (Serie) o;
+		}
+
+		return this.id == s.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.nombreSerie.hashCode() + this.sinopsis.hashCode();
+	}
 }

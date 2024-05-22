@@ -1,7 +1,8 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
-public class Capitulo {
+public class Capitulo implements Comparable<Capitulo> {
     
+	private long id;
 	private String titulo;
 	private int numCapitulo;
 	private String enlaceVisualizacion; 
@@ -24,6 +25,15 @@ public class Capitulo {
     
 
 	/* GETTERS Y SETTERS*/
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getTitulo() {
 		return titulo;
@@ -64,4 +74,38 @@ public class Capitulo {
 	public void setTemporada(Temporada temporada) {
 		this.temporada = temporada;
 	}
+
+
+	// Metodos auxiliares
+
+	@Override
+	public boolean equals(Object o) {
+
+		Capitulo cap;
+
+		if (!(o instanceof Capitulo)) {
+			return false;
+		} else {
+			cap = (Capitulo) o;
+		}
+
+		return this.id == cap.getId();
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
+
+
+	@Override
+	public int compareTo(Capitulo cap) {
+		if (this.temporada.getNumTemporada() == cap.temporada.getNumTemporada()) {
+			return this.numCapitulo - cap.getNumCapitulo();
+		} else {
+			return this.temporada.getNumTemporada() - cap.getTemporada().getNumTemporada();
+		}
+	}
+	
 }

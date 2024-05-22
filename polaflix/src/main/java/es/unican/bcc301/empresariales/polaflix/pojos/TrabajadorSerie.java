@@ -1,6 +1,9 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 
 public class TrabajadorSerie {
     
@@ -11,7 +14,12 @@ public class TrabajadorSerie {
     public TrabajadorSerie(String nombre, Date fechaNacimiento) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
-        // TODO: edad
+        edad = calculaEdad();
+    }
+
+    private int calculaEdad() {
+        LocalDate fechaNacLocalDate = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return Period.between(fechaNacLocalDate, LocalDate.now()).getYears();
     }
 
     public String getNombre() {
@@ -37,4 +45,25 @@ public class TrabajadorSerie {
     public void setEdad(int edad) {
         this.edad = edad;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        TrabajadorSerie ts;
+
+        if (!(o instanceof TrabajadorSerie)) {
+            return false;
+        } else {
+            ts = (TrabajadorSerie) o;
+        }
+
+        return this.nombre.equals(ts.getNombre()) && this.fechaNacimiento.equals(ts.getFechaNacimiento());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.nombre.hashCode();
+    }
+
+    
 }
