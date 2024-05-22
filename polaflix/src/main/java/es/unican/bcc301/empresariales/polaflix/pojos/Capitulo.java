@@ -2,7 +2,6 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 public class Capitulo {
     
-    private final long id; 
 	private String titulo;
 	private int numCapitulo;
 	private String enlaceVisualizacion; 
@@ -11,9 +10,8 @@ public class Capitulo {
 	private Temporada temporada;
 	
 
-	public Capitulo(long id, String titulo, int numCapitulo, String enlaceVisualizacion, String descripcion,
+	public Capitulo(String titulo, int numCapitulo, String enlaceVisualizacion, String descripcion,
 			Temporada temporada) {
-		this.id = id;
 		this.titulo = titulo;
 		this.numCapitulo = numCapitulo;
 		this.enlaceVisualizacion = enlaceVisualizacion;
@@ -26,10 +24,6 @@ public class Capitulo {
     
 
 	/* GETTERS Y SETTERS*/
-
-	public long getId() {
-		return id;
-	}
 
 	public String getTitulo() {
 		return titulo;
@@ -70,20 +64,4 @@ public class Capitulo {
 	public void setTemporada(Temporada temporada) {
 		this.temporada = temporada;
 	}
-
-	/* METODOS AUXILIARES */
-	public boolean equals(Capitulo cap) {
-		if (this.id == cap.id) {
-			return true;
-		}
-		return false;
-	}
-
-
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
-	}
-
 }
