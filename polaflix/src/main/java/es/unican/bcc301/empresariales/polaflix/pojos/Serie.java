@@ -1,7 +1,8 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Serie implements Comparable<Serie> {
 
@@ -12,7 +13,7 @@ public class Serie implements Comparable<Serie> {
 
 	private Set<TrabajadorSerie> actoresPrincipales;
 	private Set<TrabajadorSerie> creadores;
-	private List<Temporada> temporadas;
+	private Set<Temporada> temporadas;
 	private Categoria categoria;
 
 	public Serie(String nombreSerie, int numTotalCapitulos, String sinopsis, Categoria categoria) {
@@ -20,11 +21,47 @@ public class Serie implements Comparable<Serie> {
 		this.numTotalCapitulos = numTotalCapitulos;
 		this.sinopsis = sinopsis;
 		this.categoria = categoria;
+
+		actoresPrincipales = new HashSet<TrabajadorSerie>();
+		creadores = new HashSet<TrabajadorSerie>();
+		temporadas = new TreeSet<Temporada>();
 	}
 
 	public void anadirCapitulo(Capitulo cap) {}
 
 	public void eliminarCapitulo(Capitulo cap) {}
+
+
+
+	// metodos auxiliares
+
+	@Override
+	public int compareTo(Serie s) {
+		return Long.compare(this.id, s.getId());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		
+		Serie s;
+
+		if (!(o instanceof Serie)) {
+			return false;
+		} else {
+			s = (Serie) o;
+		}
+
+		return this.id == s.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.nombreSerie.hashCode() + this.sinopsis.hashCode();
+	}
+
+
+	
+	// getters y setters
 
 	public long getId() {
 		return id;
@@ -74,11 +111,11 @@ public class Serie implements Comparable<Serie> {
 		this.creadores = creadores;
 	}
 
-	public List<Temporada> getTemporadas() {
+	public Set<Temporada> getTemporadas() {
 		return temporadas;
 	}
 
-	public void setTemporadas(List<Temporada> temporadas) {
+	public void setTemporadas(Set<Temporada> temporadas) {
 		this.temporadas = temporadas;
 	}
 
@@ -89,28 +126,5 @@ public class Serie implements Comparable<Serie> {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-	@Override
-	public int compareTo(Serie s) {
-		return Long.compare(this.id, s.getId());
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		
-		Serie s;
-
-		if (!(o instanceof Serie)) {
-			return false;
-		} else {
-			s = (Serie) o;
-		}
-
-		return this.id == s.getId();
-	}
-
-	@Override
-	public int hashCode() {
-		return this.nombreSerie.hashCode() + this.sinopsis.hashCode();
-	}
+	
 }
