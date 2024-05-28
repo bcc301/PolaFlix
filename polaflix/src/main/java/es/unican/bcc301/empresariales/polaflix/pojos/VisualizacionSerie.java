@@ -1,11 +1,23 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Embeddable
 public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private int numUltCapVisto;
     private int numTempUltCap;
 
+    @ManyToOne
     private Usuario usuario;
+    @ManyToOne
     private Serie serie;
 
     public VisualizacionSerie(int numUltCapVisto, int numTempUltCap, Usuario usuario, Serie serie) {
@@ -70,6 +82,14 @@ public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
 
 
     // getters y setters
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getNumUltCapVisto() {
         return numUltCapVisto;

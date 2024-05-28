@@ -1,16 +1,26 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Capitulo implements Comparable<Capitulo> {
     
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String titulo;
 	private int numCapitulo;
 	private String enlaceVisualizacion; 
 	private String descripcion;
 	
+	@ManyToOne
 	private Temporada temporada;
 	
-
+	public Capitulo() { }
 	public Capitulo(String titulo, int numCapitulo, String enlaceVisualizacion, String descripcion,
 			Temporada temporada) {
 		this.titulo = titulo;

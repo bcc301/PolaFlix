@@ -2,17 +2,33 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.util.Set;
 import java.util.TreeSet;
+
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.sql.Date;
 
+@Entity
 public class Factura implements Comparable<Factura> {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private double importeTotal;
 	private Date fecha;
 
+	@ElementCollection
 	private Set<VisualizacionCapitulo> entradasFactura;
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
+	public Factura() { }
 	public Factura(Date fecha, Usuario usuario) {
 		this.fecha = fecha;
 		this.usuario = usuario;

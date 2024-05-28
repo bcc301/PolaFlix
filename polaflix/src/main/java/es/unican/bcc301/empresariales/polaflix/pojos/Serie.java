@@ -4,23 +4,42 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Serie implements Comparable<Serie> {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String nombreSerie;
 	private int numTotalCapitulos;
 	private String sinopsis;
+	private char inicial;
 
+	@ElementCollection
 	private Set<TrabajadorSerie> actoresPrincipales;
+	@ElementCollection
 	private Set<TrabajadorSerie> creadores;
+	@OneToMany (mappedBy = "serie", cascade = CascadeType.ALL)
 	private Set<Temporada> temporadas;
+	@ManyToOne
 	private Categoria categoria;
 
+	public Serie() { }
 	public Serie(String nombreSerie, int numTotalCapitulos, String sinopsis, Categoria categoria) {
 		this.nombreSerie = nombreSerie;
 		this.numTotalCapitulos = numTotalCapitulos;
 		this.sinopsis = sinopsis;
 		this.categoria = categoria;
+		this.inicial = nombreSerie.charAt(0);
 
 		actoresPrincipales = new HashSet<TrabajadorSerie>();
 		creadores = new HashSet<TrabajadorSerie>();
@@ -72,6 +91,8 @@ public class Serie implements Comparable<Serie> {
 	
 	// getters y setters
 
+	
+
 	public long getId() {
 		return id;
 	}
@@ -86,6 +107,13 @@ public class Serie implements Comparable<Serie> {
 
 	public void setNombreSerie(String nombreSerie) {
 		this.nombreSerie = nombreSerie;
+	}
+
+	public char getInicial() {
+		return inicial;
+	}
+	public void setInicial(char inicial) {
+		this.inicial = inicial;
 	}
 
 	public int getNumTotalCapitulos() {

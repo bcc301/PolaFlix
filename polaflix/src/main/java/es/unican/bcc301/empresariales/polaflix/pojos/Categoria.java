@@ -1,11 +1,16 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Categoria {
 
+    @Id
     private String nombre;
     private double precio;
 
-
+    public Categoria() { }
     public Categoria(String nombre, double precio) {
         this.nombre = nombre;
         this.precio = precio;

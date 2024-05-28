@@ -8,9 +8,19 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
+@Entity
 public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String email; 
 	private String nombreUsuario;
@@ -18,13 +28,20 @@ public class Usuario {
 	private String cuentaBancaria;
 	private boolean granConsumidor;
 
+	@OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL)
 	private SortedSet<Factura> facturas;
+	@ManyToMany
 	private Set<Serie> seriesTerminadas;
+	@ManyToMany
 	private Set<Serie> seriesEmpezadas;
+	@ManyToMany
 	private Set<Serie> seriesPendientes;
+	@OneToMany (cascade = CascadeType.ALL)
 	private Map<Serie, VisualizacionCapitulo> capitulosVistos;
+	@ManyToMany
 	private Map<Serie, VisualizacionSerie> visualizacionesSeries;
 
+	public Usuario() { }
 	public Usuario(String email, long id, String nombreUsuario, String contraseña, String cuentaBancaria, boolean granConsumidor) {
 		this.email = email;
 		this.nombreUsuario = nombreUsuario;

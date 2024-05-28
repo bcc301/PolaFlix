@@ -2,16 +2,30 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
     private LocalDate fechaVisualizacion;
 	private int numTemporada;
 	private int numCapitulo;
 	private double precioVisualizacion;
 
+	@OneToOne
 	public Factura factura;
+	@ManyToOne
 	private Usuario usuario;
 
+	public VisualizacionCapitulo() { }
 	public VisualizacionCapitulo(LocalDate fechaVisualizacion, int numTemporada, double precioVisualizacion, int numCapitulo, Factura factura,
 			Usuario usuario) {
 		this.fechaVisualizacion = fechaVisualizacion;
@@ -60,6 +74,14 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 	
 	// getters y setters
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public LocalDate getFechaVisualizacion() {
 		return fechaVisualizacion;
 	}

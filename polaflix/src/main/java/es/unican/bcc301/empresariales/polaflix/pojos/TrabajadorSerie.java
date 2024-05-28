@@ -5,8 +5,13 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Id;
+
+@Embeddable
 public class TrabajadorSerie {
     
+    @Id
     private String nombre;
     private Date fechaNacimiento;
     private int edad;
