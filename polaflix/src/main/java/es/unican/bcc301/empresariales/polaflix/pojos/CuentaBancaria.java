@@ -8,13 +8,8 @@ public class CuentaBancaria {
         IBAN = iBAN;
     }
 
-    public String getIBAN() {
-        return IBAN;
-    }
-
-    public void setIBAN(String iBAN) {
-        IBAN = iBAN;
-    }
+    
+    // metodos auxiliares
 
     @Override
     public boolean equals(Object o) {
@@ -29,4 +24,16 @@ public class CuentaBancaria {
 
         return this.IBAN.equals(cuenta.getIBAN());
     }
+
+
+    // getters y setters
+
+    public String getIBAN() {
+        return IBAN;
+    }
+
+    public void setIBAN(String iBAN) {
+        IBAN = iBAN;
+    }
+
 }

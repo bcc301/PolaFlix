@@ -21,10 +21,49 @@ public class Capitulo implements Comparable<Capitulo> {
 	}
 	
 
-	/* METODOS DE NEGOCIO */
+	// metodos auxiliares
     
+	public Categoria getCategoria() {
+		return this.getTemporada().getSerie().getCategoria();
+	}
 
-	/* GETTERS Y SETTERS*/
+	
+	public Serie getSerie() {
+		return this.getTemporada().getSerie();
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+
+		Capitulo cap;
+
+		if (!(o instanceof Capitulo)) {
+			return false;
+		} else {
+			cap = (Capitulo) o;
+		}
+
+		return this.id == cap.getId();
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Long.hashCode(this.id);
+	}
+
+
+	@Override
+	public int compareTo(Capitulo cap) {
+		if (this.temporada.getNumTemporada() == cap.temporada.getNumTemporada()) {
+			return this.numCapitulo - cap.getNumCapitulo();
+		} else {
+			return this.temporada.getNumTemporada() - cap.getTemporada().getNumTemporada();
+		}
+	}
+
+	// getters y setters
 
 	public long getId() {
 		return id;
@@ -73,39 +112,6 @@ public class Capitulo implements Comparable<Capitulo> {
 
 	public void setTemporada(Temporada temporada) {
 		this.temporada = temporada;
-	}
-
-
-	// Metodos auxiliares
-
-	@Override
-	public boolean equals(Object o) {
-
-		Capitulo cap;
-
-		if (!(o instanceof Capitulo)) {
-			return false;
-		} else {
-			cap = (Capitulo) o;
-		}
-
-		return this.id == cap.getId();
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Long.hashCode(this.id);
-	}
-
-
-	@Override
-	public int compareTo(Capitulo cap) {
-		if (this.temporada.getNumTemporada() == cap.temporada.getNumTemporada()) {
-			return this.numCapitulo - cap.getNumCapitulo();
-		} else {
-			return this.temporada.getNumTemporada() - cap.getTemporada().getNumTemporada();
-		}
 	}
 	
 }

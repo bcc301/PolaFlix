@@ -12,6 +12,31 @@ public class Categoria {
     }
 
 
+    // metodos auxiliares
+
+    @Override
+    public boolean equals(Object o) {
+        
+        Categoria cat;
+
+        if (!(o instanceof Categoria)) {
+            return false;
+        } else {
+            cat = (Categoria) o;
+        }
+
+        return this.nombre.equals(cat.getNombre());
+    }
+
+
+    @Override
+    public int hashCode() {
+        return (int) this.precio * 17;
+    }
+
+
+    // getters y setters
+
     public String getNombre() {
         return nombre;
     }
@@ -31,23 +56,4 @@ public class Categoria {
         this.precio = precio;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        
-        Categoria cat;
-
-        if (!(o instanceof Categoria)) {
-            return false;
-        } else {
-            cat = (Categoria) o;
-        }
-
-        return this.nombre.equals(cat.getNombre());
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) this.precio * 17;
-    }
 }

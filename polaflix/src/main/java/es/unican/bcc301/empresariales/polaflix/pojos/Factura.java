@@ -10,22 +10,31 @@ public class Factura implements Comparable<Factura> {
 	private double importeTotal;
 	private Date fecha;
 
-	private Set<VisualizacionSerie> entradasFactura;
+	private Set<VisualizacionCapitulo> entradasFactura;
 	private Usuario usuario;
 
 	public Factura(Date fecha, Usuario usuario) {
 		this.fecha = fecha;
 		this.usuario = usuario;
 		this.importeTotal = 0;
-		this.entradasFactura = new TreeSet<>();
+		this.entradasFactura = new TreeSet<VisualizacionCapitulo>();
 	}
-
-	/* METODOS DE NEGOCIO */
-
-	public void añadirVisualizacionCapituloAFactura(VisualizacionSerie visualizacion) {}
 
 
 	// metodos auxiliares
+
+
+	// metodo para anadir una visualizacion de un capitulo a la factura de un usuario
+	public void anadirVisualizacionCapituloAFactura(VisualizacionCapitulo visualizacion) {
+
+		// comprobar valor no nulo
+		if (visualizacion == null) {
+			return;
+		}
+
+		this.entradasFactura.add(visualizacion);
+	}
+
 
 	@Override
 	public int compareTo(Factura fact) {
@@ -52,7 +61,6 @@ public class Factura implements Comparable<Factura> {
 	}
 
 
-	
 	// gettters y setters
 
 	public long getId() {
@@ -87,11 +95,12 @@ public class Factura implements Comparable<Factura> {
 		this.usuario = usuario;
 	}
 
-	public Set<VisualizacionSerie> getEntradasFactura() {
+	public Set<VisualizacionCapitulo> getEntradasFactura() {
 		return entradasFactura;
 	}
 
-	public void setEntradasFactura(Set<VisualizacionSerie> entradasFactura) {
+	public void setEntradasFactura(Set<VisualizacionCapitulo> entradasFactura) {
 		this.entradasFactura = entradasFactura;
 	}
+	
 }

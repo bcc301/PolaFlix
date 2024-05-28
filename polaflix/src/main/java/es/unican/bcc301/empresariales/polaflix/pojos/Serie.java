@@ -27,13 +27,23 @@ public class Serie implements Comparable<Serie> {
 		temporadas = new TreeSet<Temporada>();
 	}
 
-	public void anadirCapitulo(Capitulo cap) {}
-
-	public void eliminarCapitulo(Capitulo cap) {}
-
-
 
 	// metodos auxiliares
+
+	// anadir actor a la serie
+	public void anadirActor(TrabajadorSerie a) {
+		if (a != null) {
+			this.actoresPrincipales.add(a);
+		}
+	}
+
+	// anadir creador a la serie
+	public void anadirCreador(TrabajadorSerie c) {
+		if (c != null) {
+			this.creadores.add(c);
+		}
+	}
+	
 
 	@Override
 	public int compareTo(Serie s) {
@@ -58,7 +68,6 @@ public class Serie implements Comparable<Serie> {
 	public int hashCode() {
 		return this.nombreSerie.hashCode() + this.sinopsis.hashCode();
 	}
-
 
 	
 	// getters y setters

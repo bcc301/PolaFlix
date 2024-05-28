@@ -1,5 +1,7 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +23,7 @@ public class Usuario {
 	private Set<Serie> seriesEmpezadas;
 	private Set<Serie> seriesPendientes;
 	private Map<Serie, VisualizacionCapitulo> capitulosVistos;
-	private Map<Serie, Capitulo> visualizacionesSeries;
+	private Map<Serie, VisualizacionSerie> visualizacionesSeries;
 
 	public Usuario(String email, long id, String nombreUsuario, String contraseña, String cuentaBancaria, boolean granConsumidor) {
 		this.email = email;
@@ -35,7 +37,7 @@ public class Usuario {
 		seriesEmpezadas = new TreeSet<Serie>();
 		seriesPendientes = new TreeSet<Serie>();
 		capitulosVistos = new HashMap<Serie, VisualizacionCapitulo>();
-		visualizacionesSeries = new HashMap<Serie, Capitulo>();
+		visualizacionesSeries = new HashMap<Serie, VisualizacionSerie>();
 	}
 
 	/* METODOS DE NEGOCIO */
@@ -44,15 +46,148 @@ public class Usuario {
 
 	public void agregarSerieAEspacioPersonal(Serie s) {}
 
-	public void verCapitulo(Capitulo cap) {}
-
 	public Factura buscarFactura(int mes, int año) {return null;}
-
-	// TODO: queda pendiente el metodo verFacturas() que no se si hara falta
-
 
 	
 	// metodos auxiliares
+
+	// metodo para anadir serie del catalogo a la lista de series pendientes
+	public void anadirSerieAPendientes(Serie seriePendiente) {
+
+		// comprobar que la serie no esta en pendientes
+		if (this.seriesPendientes.contains(seriePendiente)) {
+			return;
+		}
+
+		// si esta en alguna de las otras listas, borrarla para meterla en pendientes
+		if (this.seriesEmpezadas.contains(seriePendiente)) {
+			this.seriesEmpezadas.remove(seriePendiente);
+		} 
+		if (this.seriesTerminadas.contains(seriePendiente)) {
+			this.seriesTerminadas.remove(seriePendiente);
+		}
+
+		// anadirla a la lista de pendientes
+		this.seriesPendientes.add(seriePendiente);
+	}
+
+
+	// metodo para anadir serie del catalogo a la lista de series empezadas
+	public void anadirSerieAEmpezadas(Serie serieEmpezada) {
+
+		// comprobar que no esta en empezadas
+		if (this.seriesEmpezadas.contains(serieEmpezada)) {
+			return;
+		}
+
+		// si esta en alguna de las otras listas, borrarla para meterla en empezadas
+		if (this.seriesPendientes.contains(serieEmpezada)) {
+			this.seriesPendientes.remove(serieEmpezada);
+		}
+		if (this.seriesTerminadas.contains(serieEmpezada)) {
+			this.seriesTerminadas.contains(serieEmpezada);
+		}
+
+		// anadir la serie a empezadas
+		this.seriesEmpezadas.add(serieEmpezada);
+	}
+
+
+	// metodo para anadir serie del catalogo a lista de series terminadas
+	public void anadirSerieATerminadas(Serie serieTerminada) {
+
+		// comprobar que no esta en terminadas
+		if (this.seriesTerminadas.contains(serieTerminada)) {
+			return;
+		}
+
+		// si esta en alguna de las otras listas, borrarla para meterla en terminadas
+		if (this.seriesEmpezadas.contains(serieTerminada)) {
+			this.seriesEmpezadas.remove(serieTerminada);
+		}
+		if (this.seriesPendientes.contains(serieTerminada)) {
+			this.seriesPendientes.remove(serieTerminada);
+		}
+
+		// anadir la serie a terminadas
+		this.seriesTerminadas.add(serieTerminada);
+	}
+
+
+	// metodo para actualizar la informacion necesaria cuando se vea un capitulo
+	public void verCapitulo(Capitulo capVisto) {
+
+		// comprobacion objeto no nulo
+		if (capVisto == null) {
+			return;
+		}
+
+		Factura ultimaFactura = null;
+
+		// fecha ultima factura
+		LocalDate fecha = LocalDate.now();
+		fecha = fecha.withDayOfMonth(1);
+		Date fechaUltFactura = Date.valueOf(fecha);
+
+		// atributos del capitulo visto
+		Serie serieCapVisto = capVisto.getSerie();
+		Temporada tempCapVisto = capVisto.getTemporada();
+		int numCapVisto = capVisto.getNumCapitulo();
+
+
+		// crear la visualizacion del capitulo
+		VisualizacionCapitulo visualizacionCap = new VisualizacionCapitulo(LocalDate.now(), 
+		tempCapVisto.getNumTemporada(), capVisto.getCategoria().getPrecio(), numCapVisto, 
+				this.getFacturaActual(fechaUltFactura), this);
+		
+		// anadir la visualizacion a capitulos vistos del usuario
+		this.capitulosVistos.put(serieCapVisto, visualizacionCap);
+
+		// registrar que se ha comenzado a ver esta serie y actualizar ult cap visto de la serie
+		VisualizacionSerie visualizacionSerie = this.visualizacionesSeries.get(serieCapVisto);
+		if (visualizacionSerie == null) {
+			// si era el primer capitulo que se veia de la serie, crear la visualizacion
+			// de la serie con este capitulo como ultimo visto de la serie
+			visualizacionSerie = new VisualizacionSerie(numCapVisto, tempCapVisto.getNumTemporada(), this, serieCapVisto);
+			seriesEmpezadas.add(serieCapVisto);
+		} else {
+			visualizacionSerie.actualizarUltimoCapituloVisto(capVisto);
+		}
+
+		// si es el ultimo capitulo de la serie: serie terminada
+		if (serieCapVisto.getNumTotalCapitulos() == (tempCapVisto.getCapitulos().size())) {
+			seriesEmpezadas.remove(serieCapVisto);
+			seriesTerminadas.add(serieCapVisto);
+		}
+
+		// añadir la visualizacion a la factura del usuario del mes actual
+
+		// si todavia no existe la factura del mes actual, crearla
+		ultimaFactura = this.facturas.last();
+		if (this.facturas.isEmpty() || !(ultimaFactura.getFecha().equals(fechaUltFactura))) {
+			// crear la factura actual y añadirsela al usuario
+			ultimaFactura = new Factura(fechaUltFactura, this);
+			this.facturas.add(ultimaFactura);
+		}
+		
+		// anadir la visualizacion a la factura
+		ultimaFactura.anadirVisualizacionCapituloAFactura(visualizacionCap);
+
+	}
+
+
+	// metodo para obtener la factura actual de un usuario (fecha = primer dia del mes) 
+	public Factura getFacturaActual(Date fecha) {
+		
+		for (Factura f: this.facturas) {
+			if (f.getFecha().equals(fecha)) {
+				return f;
+			}
+		}
+		
+		return null;
+	}
+
 
 	@Override
 	public boolean equals(Object o) {
@@ -164,11 +299,11 @@ public class Usuario {
 		this.capitulosVistos = capitulosVistos;
 	}
 
-	public Map<Serie, Capitulo> getVisualizacionesSeries() {
+	public Map<Serie, VisualizacionSerie> getVisualizacionesSeries() {
 		return visualizacionesSeries;
 	}
 
-	public void setVisualizacionesSeries(Map<Serie, Capitulo> visualizacionesSeries) {
+	public void setVisualizacionesSeries(Map<Serie, VisualizacionSerie> visualizacionesSeries) {
 		this.visualizacionesSeries = visualizacionesSeries;
 	}
 

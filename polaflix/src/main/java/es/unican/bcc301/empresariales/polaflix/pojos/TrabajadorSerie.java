@@ -17,9 +17,31 @@ public class TrabajadorSerie {
         edad = calculaEdad();
     }
 
+
+    // metodos auxiliares
+
     private int calculaEdad() {
         LocalDate fechaNacLocalDate = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return Period.between(fechaNacLocalDate, LocalDate.now()).getYears();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        TrabajadorSerie ts;
+
+        if (!(o instanceof TrabajadorSerie)) {
+            return false;
+        } else {
+            ts = (TrabajadorSerie) o;
+        }
+
+        return this.nombre.equals(ts.getNombre()) && this.fechaNacimiento.equals(ts.getFechaNacimiento());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.nombre.hashCode();
     }
 
     public String getNombre() {
@@ -46,24 +68,4 @@ public class TrabajadorSerie {
         this.edad = edad;
     }
 
-    @Override
-    public boolean equals(Object o) {
-
-        TrabajadorSerie ts;
-
-        if (!(o instanceof TrabajadorSerie)) {
-            return false;
-        } else {
-            ts = (TrabajadorSerie) o;
-        }
-
-        return this.nombre.equals(ts.getNombre()) && this.fechaNacimiento.equals(ts.getFechaNacimiento());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.nombre.hashCode();
-    }
-
-    
 }

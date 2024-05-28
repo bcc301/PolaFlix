@@ -21,6 +21,14 @@ public class Temporada implements Comparable<Temporada> {
 
     // metodos auxiliares
 
+    // metodo para anadir un capitulo a la temporada
+    public void anadirCapitulo(Capitulo c) {
+        if (c != null) {
+            this.capitulos.add(c);
+        }
+    }
+
+
     @Override
     public int compareTo(Temporada temp) {
         return this.getNumTemporada() - temp.getNumTemporada();

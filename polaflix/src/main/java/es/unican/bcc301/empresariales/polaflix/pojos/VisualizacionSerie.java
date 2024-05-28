@@ -15,6 +15,25 @@ public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
         this.serie = serie;
     }
 
+
+    // metodos auxiliares
+
+    // metodo para actualizar el ultimo capitulo visto de una serie por parte de un usuario
+    public void actualizarUltimoCapituloVisto(Capitulo ultCap) {
+        
+        // comprobar objeto no nulo
+        if (ultCap == null) {
+            return;
+        }
+
+        // actualizar el ultimo capitulo visto de la serie si procede
+        if (ultCap.getTemporada().getNumTemporada() >= numTempUltCap &&
+            ultCap.getNumCapitulo() > numUltCapVisto) {
+            numTempUltCap = ultCap.getTemporada().getNumTemporada();
+            numUltCapVisto = ultCap.getNumCapitulo();
+        }
+    }
+
     @Override
     public int compareTo(VisualizacionSerie vs) {
 
@@ -49,10 +68,8 @@ public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
             this.numTempUltCap * this.numUltCapVisto;
     }
 
-    /* METODOS DE NEGOCIO */
-    public void actualizarUltimoCapituloVisto(Capitulo ultCap) {}
 
-    /* GETTERS Y SETTERS */
+    // getters y setters
 
     public int getNumUltCapVisto() {
         return numUltCapVisto;

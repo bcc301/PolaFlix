@@ -7,18 +7,23 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
     private LocalDate fechaVisualizacion;
 	private int numTemporada;
 	private int numCapitulo;
+	private double precioVisualizacion;
 
 	public Factura factura;
 	private Usuario usuario;
 
-	public VisualizacionCapitulo(LocalDate fechaVisualizacion, int numTemporada, int numCapitulo, Factura factura,
+	public VisualizacionCapitulo(LocalDate fechaVisualizacion, int numTemporada, double precioVisualizacion, int numCapitulo, Factura factura,
 			Usuario usuario) {
 		this.fechaVisualizacion = fechaVisualizacion;
 		this.numTemporada = numTemporada;
 		this.numCapitulo = numCapitulo;
+		this.precioVisualizacion = precioVisualizacion;
 		this.factura = factura;
 		this.usuario = usuario;
 	}
+
+
+	// metodos auxiliares
 
 	@Override
 	public int compareTo(VisualizacionCapitulo vc) {
@@ -29,8 +34,6 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 			return this.numTemporada - vc.getNumTemporada();
 		}
 	}
-
-	/* METODOS DE NEGOCIO */
 
 	@Override
 	public boolean equals(Object o) {
@@ -54,9 +57,8 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 		return this.fechaVisualizacion.hashCode() * this.numCapitulo * this.numTemporada;
 	}
 
-	public float getPrecioVisualizacion() { return 0;}
-
-	/* GETTERS Y SETTERS */
+	
+	// getters y setters
 
 	public LocalDate getFechaVisualizacion() {
 		return fechaVisualizacion;
@@ -80,6 +82,14 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 
 	public void setNumCapitulo(int numCapitulo) {
 		this.numCapitulo = numCapitulo;
+	}
+
+	public double getPrecioVisualizacion() {
+		return precioVisualizacion;
+	}
+
+	public void setPrecioVisualizacion(double precioVisualizacion) {
+		this.precioVisualizacion = precioVisualizacion;
 	}
 
 	public Factura getFactura() {
