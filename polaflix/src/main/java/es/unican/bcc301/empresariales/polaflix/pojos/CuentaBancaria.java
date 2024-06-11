@@ -9,6 +9,7 @@ public class CuentaBancaria {
     @Id
     private String IBAN;
 
+    public CuentaBancaria() { }
     public CuentaBancaria(String IBAN) {
         this.IBAN = IBAN;
     }

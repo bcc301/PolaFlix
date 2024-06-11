@@ -2,14 +2,14 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
-@Entity
+@Embeddable
 public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> {
 
 	@Id

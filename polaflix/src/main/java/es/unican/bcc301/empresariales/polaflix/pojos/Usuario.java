@@ -9,6 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +26,10 @@ public class Usuario {
 	private String email; 
 	private String nombreUsuario;
 	private String contraseña;
-	private String cuentaBancaria;
 	private boolean granConsumidor;
 
+	@Embedded
+	private CuentaBancaria cuentaBancaria;
 	@OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL)
 	private SortedSet<Factura> facturas;
 	@ManyToMany
@@ -42,7 +44,7 @@ public class Usuario {
 	private Map<Serie, VisualizacionSerie> visualizacionesSeries;
 
 	public Usuario() { }
-	public Usuario(String email, long id, String nombreUsuario, String contraseña, String cuentaBancaria, boolean granConsumidor) {
+	public Usuario(String email, long id, String nombreUsuario, String contraseña, CuentaBancaria cuentaBancaria, boolean granConsumidor) {
 		this.email = email;
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;
@@ -260,11 +262,11 @@ public class Usuario {
 		this.contraseña = contraseña;
 	}
 
-	public String getCuentaBancaria() {
+	public CuentaBancaria getCuentaBancaria() {
 		return cuentaBancaria;
 	}
 
-	public void setCuentaBancaria(String cuentaBancaria) {
+	public void setCuentaBancaria(CuentaBancaria cuentaBancaria) {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 
