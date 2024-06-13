@@ -20,7 +20,6 @@ public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
     @ManyToOne
     private Serie serie;
 
-    public VisualizacionSerie() { }
     public VisualizacionSerie(int numUltCapVisto, int numTempUltCap, Usuario usuario, Serie serie) {
         this.numUltCapVisto = numUltCapVisto;
         this.numTempUltCap = numTempUltCap;

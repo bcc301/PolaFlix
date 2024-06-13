@@ -16,7 +16,6 @@ public class TrabajadorSerie {
     private Date fechaNacimiento;
     private int edad;
 
-    public TrabajadorSerie() { }
     public TrabajadorSerie(String nombre, Date fechaNacimiento) {
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;

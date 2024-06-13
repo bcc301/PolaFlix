@@ -24,7 +24,6 @@ public class Temporada implements Comparable<Temporada> {
     @OneToMany (mappedBy = "temporada", cascade = CascadeType.ALL)
     private Set<Capitulo> capitulos;
 
-    public Temporada() { }
     public Temporada(int numTemporada, Serie serie) {
         this.numTemporada = numTemporada;
         this.serie = serie;
