@@ -1,12 +1,10 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 
 @Embeddable
 public class CuentaBancaria {
 
-    @Id
     private String IBAN;
 
     public CuentaBancaria(String IBAN) {

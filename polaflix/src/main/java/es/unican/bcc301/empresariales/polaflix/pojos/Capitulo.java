@@ -66,7 +66,7 @@ public class Capitulo implements Comparable<Capitulo> {
 
 	@Override
 	public int compareTo(Capitulo cap) {
-		if (this.temporada.getNumTemporada() == cap.temporada.getNumTemporada()) {
+		if (this.temporada.getNumTemporada() == cap.getTemporada().getNumTemporada()) {
 			return this.numCapitulo - cap.getNumCapitulo();
 		} else {
 			return this.temporada.getNumTemporada() - cap.getTemporada().getNumTemporada();

@@ -4,14 +4,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
-@Embeddable
+@Entity
 public class Temporada implements Comparable<Temporada> {
 
     @Id

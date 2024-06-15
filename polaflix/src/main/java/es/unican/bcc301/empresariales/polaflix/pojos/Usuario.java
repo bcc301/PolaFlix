@@ -44,7 +44,7 @@ public class Usuario {
 	private Map<Serie, VisualizacionSerie> visualizacionesSeries;
 
 	public Usuario() { }
-	public Usuario(String email, long id, String nombreUsuario, String contraseña, CuentaBancaria cuentaBancaria, boolean granConsumidor) {
+	public Usuario(String email, String nombreUsuario, String contraseña, CuentaBancaria cuentaBancaria, boolean granConsumidor) {
 		this.email = email;
 		this.nombreUsuario = nombreUsuario;
 		this.contraseña = contraseña;

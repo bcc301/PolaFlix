@@ -1,12 +1,12 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
-@Embeddable
+@Entity
 public class VisualizacionSerie implements Comparable<VisualizacionSerie> {
 
     @Id

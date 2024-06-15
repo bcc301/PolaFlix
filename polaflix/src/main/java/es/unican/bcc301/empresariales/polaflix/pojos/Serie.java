@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -102,7 +103,7 @@ public class Serie implements Comparable<Serie> {
 	}
 
 	public String getNombreSerie() {
-		return nombreSerie;
+		return this.nombreSerie;
 	}
 
 	public void setNombreSerie(String nombreSerie) {

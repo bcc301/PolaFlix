@@ -2,14 +2,13 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
-@Embeddable
+@Entity
 public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> {
 
 	@Id
@@ -20,7 +19,7 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 	private int numCapitulo;
 	private double precioVisualizacion;
 
-	@OneToOne
+	@ManyToOne
 	public Factura factura;
 	@ManyToOne
 	private Usuario usuario;

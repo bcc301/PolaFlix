@@ -6,18 +6,16 @@ import java.time.Period;
 import java.time.ZoneId;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 
 @Embeddable
 public class TrabajadorSerie {
     
-    @Id
-    private String nombre;
+    private String nombreTrabajador;
     private Date fechaNacimiento;
     private int edad;
 
     public TrabajadorSerie(String nombre, Date fechaNacimiento) {
-        this.nombre = nombre;
+        this.nombreTrabajador = nombre;
         this.fechaNacimiento = fechaNacimiento;
         edad = calculaEdad();
     }
@@ -41,20 +39,20 @@ public class TrabajadorSerie {
             ts = (TrabajadorSerie) o;
         }
 
-        return this.nombre.equals(ts.getNombre()) && this.fechaNacimiento.equals(ts.getFechaNacimiento());
+        return this.nombreTrabajador.equals(ts.getNombre()) && this.fechaNacimiento.equals(ts.getFechaNacimiento());
     }
 
     @Override
     public int hashCode() {
-        return this.nombre.hashCode();
+        return this.nombreTrabajador.hashCode();
     }
 
     public String getNombre() {
-        return nombre;
+        return nombreTrabajador;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombreTrabajador = nombre;
     }
 
     public Date getFechaNacimiento() {
