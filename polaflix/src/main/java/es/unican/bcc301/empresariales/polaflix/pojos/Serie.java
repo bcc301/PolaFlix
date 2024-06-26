@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,6 +63,17 @@ public class Serie implements Comparable<Serie> {
 		}
 	}
 	
+	//obtener temporada 
+	public Temporada getTemporada(int numTemporada) {
+
+		for (Temporada t: temporadas) {
+			if (t.getNumTemporada() == numTemporada) {
+				return t;
+			}
+		}
+
+		return null;
+	}
 
 	@Override
 	public int compareTo(Serie s) {

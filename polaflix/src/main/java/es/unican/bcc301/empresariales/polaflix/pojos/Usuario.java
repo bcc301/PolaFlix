@@ -59,15 +59,6 @@ public class Usuario {
 		visualizacionesSeries = new HashMap<Serie, VisualizacionSerie>();
 	}
 
-	/* METODOS DE NEGOCIO */
-
-	public Serie buscarSerie(String nombreSerie) { return null; }
-
-	public void agregarSerieAEspacioPersonal(Serie s) {}
-
-	public Factura buscarFactura(int mes, int año) {return null;}
-
-	
 	// metodos auxiliares
 
 	// metodo para anadir serie del catalogo a la lista de series pendientes
@@ -207,6 +198,10 @@ public class Usuario {
 		return null;
 	}
 
+	// obtener las visualizaciones de una serie (mediante ultimo cap visto)
+	public VisualizacionSerie getSerieVisualizaciones(Serie serie) {
+		return this.visualizacionesSeries.get(serie);
+	}
 
 	@Override
 	public boolean equals(Object o) {

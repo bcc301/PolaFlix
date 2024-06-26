@@ -41,6 +41,18 @@ public class Temporada implements Comparable<Temporada> {
         }
     }
 
+    // metodo para obtener un capitulo dado su numero
+    public Capitulo getCapitulo(int numCapitulo) {
+
+        for (Capitulo cap: capitulos) {
+            if (cap.getNumCapitulo() == numCapitulo) {
+                return cap;
+            }
+        }
+
+        return null;
+    }
+
 
     @Override
     public int compareTo(Temporada temp) {
