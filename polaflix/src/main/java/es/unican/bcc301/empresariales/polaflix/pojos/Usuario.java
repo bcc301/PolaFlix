@@ -198,9 +198,21 @@ public class Usuario {
 		return null;
 	}
 
-	// obtener las visualizaciones de una serie (mediante ultimo cap visto)
+	// obtener las visualizaciones de una serie mediante su ultimo capitulo //TODO: repaso
 	public VisualizacionSerie getSerieVisualizaciones(Serie serie) {
 		return this.visualizacionesSeries.get(serie);
+	}
+
+	// obtener ultimo capitulo visto de la serie
+	public Capitulo getUltCapVisto(Serie serie) {
+
+		Capitulo ultCap;
+		VisualizacionSerie visualizacionUltCap;
+
+		visualizacionUltCap = this.visualizacionesSeries.get(serie);
+		ultCap = visualizacionUltCap.getSerie().getTemporada(visualizacionUltCap.getNumTempUltCap()).getCapitulo(visualizacionUltCap.getNumUltCapVisto());
+
+		return ultCap;
 	}
 
 	@Override

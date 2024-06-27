@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.bcc301.empresariales.polaflix.pojos.Capitulo;
+import es.unican.bcc301.empresariales.polaflix.pojos.Factura;
 import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Usuario;
 import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionCapitulo;
@@ -101,17 +102,69 @@ public class UsuarioController {
     }
 
     // anadir serie a lista pendientes
+    @PutMapping(value = "/{id}/series-pendientes/{serieId}")
+    @JsonView(JsonViews.UsuarioView.class)
+    @Transactional
+    public ResponseEntity<Usuario> anadirSerieAPendientes(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
 
+        Optional<Usuario> usuario = ur.findById(id);
+        ResponseEntity<Usuario> respuesta;
+        Optional<Serie> serie = sr.findById(serieId);
+
+        if (!(usuario.isPresent())) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (serie.isPresent()) {
+            usuario.get().anadirSerieAPendientes(serie.get());
+            ur.save(usuario.get());
+            respuesta = ResponseEntity.ok(usuario.get());
+        } else {
+            respuesta = ResponseEntity.notFound().build();
+        }
+
+        return respuesta;
+    }
 
     // obtener facturas
+    @GetMapping(value = "/{id}/facturas")
+    @JsonView(JsonViews.FacturaView.class)
+    public ResponseEntity<Iterable<Factura>> obtenerFacturas(@PathVariable("id") long id) {
+        
+        Optional<Usuario> usuario = ur.findById(id);
+        ResponseEntity<Iterable<Factura>> respuesta;
 
+        if (usuario.isPresent()) {
+            respuesta = ResponseEntity.ok(usuario.get().getFacturas());
+        } else {
+            respuesta = ResponseEntity.notFound().build();
+        }
 
-    // obtener capitulos de serie
-
+        return respuesta;
+    }
 
     // obtener ultimo capitulo visto de una serie
+    @GetMapping(value = "/{id}/ult-cap-visto/{serieId}")
+    @JsonView(JsonViews.CapituloView.class)
+    public ResponseEntity<Capitulo> getLastChapterViewed(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
+        
+        Optional<Usuario> ususario = ur.findById(id);
+        ResponseEntity<Capitulo> respuesta;
 
-    
+        if (!(ususario.isPresent())) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Serie> s = sr.findById(serieId);
+
+        if (s.isPresent()) {
+            respuesta = ResponseEntity.ok(ususario.get().getUltCapVisto(s.get()));
+        } else {
+            respuesta = ResponseEntity.notFound().build();
+        }
+
+        return respuesta;
+    }
     
     public UsuarioRepositorio getUr() {
         return ur;
