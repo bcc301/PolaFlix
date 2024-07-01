@@ -1,5 +1,6 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,13 +12,18 @@ public class Capitulo implements Comparable<Capitulo> {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView({JsonViews.CapituloView.class, JsonViews.FacturaView.class})
 	private long id;
+	@JsonView({JsonViews.SerieView.class, JsonViews.CapituloView.class})
 	private String titulo;
+	 @JsonView({JsonViews.SerieView.class, JsonViews.FacturaView.class, JsonViews.CapituloView.class})
 	private int numCapitulo;
 	private String enlaceVisualizacion; 
+	@JsonView({JsonViews.CapituloView.class, JsonViews.SerieView.class})
 	private String descripcion;
 	
 	@ManyToOne
+	@JsonView({JsonViews.FacturaView.class, JsonViews.CapituloView.class})
 	private Temporada temporada;
 	
 	public Capitulo() { }

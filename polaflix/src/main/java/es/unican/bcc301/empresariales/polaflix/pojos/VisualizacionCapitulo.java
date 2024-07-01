@@ -2,6 +2,7 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 
 import java.time.LocalDate;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,8 +15,11 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@JsonView(JsonViews.VisualizacionCapituloView.class)
     private LocalDate fechaVisualizacion;
+	@JsonView(JsonViews.VisualizacionCapituloView.class)
 	private int numTemporada;
+	@JsonView(JsonViews.VisualizacionCapituloView.class)
 	private int numCapitulo;
 	private double precioVisualizacion;
 

@@ -16,7 +16,6 @@ import es.unican.bcc301.empresariales.polaflix.pojos.Capitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.Factura;
 import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Usuario;
-import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionCapitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionSerie;
 import es.unican.bcc301.empresariales.polaflix.repositorios.SerieRepositorio;
 import es.unican.bcc301.empresariales.polaflix.repositorios.UsuarioRepositorio;

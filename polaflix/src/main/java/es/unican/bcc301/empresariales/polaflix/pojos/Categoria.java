@@ -1,5 +1,6 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -7,6 +8,7 @@ import jakarta.persistence.Id;
 public class Categoria {
 
     @Id
+    @JsonView({JsonViews.SerieView.class})
     private String nombre;
     private double precio;
 

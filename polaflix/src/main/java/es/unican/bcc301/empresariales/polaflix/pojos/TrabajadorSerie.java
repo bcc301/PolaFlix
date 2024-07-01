@@ -5,12 +5,15 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class TrabajadorSerie {
     
+    @JsonView(JsonViews.SerieView.class)
     private String nombreTrabajador;
+    @JsonView(JsonViews.SerieView.class)
     private Date fechaNacimiento;
     private int edad;
 

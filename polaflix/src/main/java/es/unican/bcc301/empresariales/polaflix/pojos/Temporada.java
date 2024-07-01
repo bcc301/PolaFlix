@@ -3,6 +3,7 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 import java.util.Set;
 import java.util.TreeSet;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +18,14 @@ public class Temporada implements Comparable<Temporada> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+     @JsonView({JsonViews.SerieView.class, JsonViews.FacturaView.class, JsonViews.CapituloView.class})
     private int numTemporada;
 
     @ManyToOne
+    @JsonView({JsonViews.FacturaView.class, JsonViews.CapituloView.class})
     private Serie serie;
     @OneToMany (mappedBy = "temporada", cascade = CascadeType.ALL)
+    @JsonView(JsonViews.SerieView.class)
     private Set<Capitulo> capitulos;
 
     public Temporada(int numTemporada, Serie serie) {

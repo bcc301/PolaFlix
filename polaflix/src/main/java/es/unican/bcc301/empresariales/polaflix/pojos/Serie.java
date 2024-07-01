@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -18,19 +19,27 @@ public class Serie implements Comparable<Serie> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView({JsonViews.SerieView.class, JsonViews.UsuarioView.class})
 	private long id;
+	@JsonView({JsonViews.UsuarioView.class, JsonViews.SerieView.class, JsonViews.FacturaView.class, 
+        JsonViews.CapituloView.class})
 	private String nombreSerie;
 	private int numTotalCapitulos;
+	@JsonView({JsonViews.SerieView.class})
 	private String sinopsis;
 	private char inicial;
 
 	@ElementCollection
+	@JsonView(JsonViews.SerieView.class)
 	private Set<TrabajadorSerie> actoresPrincipales;
 	@ElementCollection
+	@JsonView(JsonViews.SerieView.class)
 	private Set<TrabajadorSerie> creadores;
 	@OneToMany (mappedBy = "serie", cascade = CascadeType.ALL)
+	@JsonView(JsonViews.SerieView.class)
 	private Set<Temporada> temporadas;
 	@ManyToOne
+	@JsonView({JsonViews.SerieView.class})
 	private Categoria categoria;
 
 	public Serie() { }

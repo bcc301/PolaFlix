@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -23,8 +24,11 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@JsonView(JsonViews.UsuarioView.class)
 	private String email; 
+	@JsonView(JsonViews.UsuarioView.class)
 	private String nombreUsuario;
+	@JsonIgnore
 	private String contraseña;
 	private boolean granConsumidor;
 
@@ -33,12 +37,16 @@ public class Usuario {
 	@OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL)
 	private SortedSet<Factura> facturas;
 	@ManyToMany
+	@JsonView(JsonViews.UsuarioView.class)
 	private Set<Serie> seriesTerminadas;
 	@ManyToMany
+	@JsonView(JsonViews.UsuarioView.class)
 	private Set<Serie> seriesEmpezadas;
 	@ManyToMany
+	@JsonView(JsonViews.UsuarioView.class)
 	private Set<Serie> seriesPendientes;
 	@OneToMany (cascade = CascadeType.ALL)
+	@JsonView(JsonViews.SerieView.class)
 	private Map<Serie, VisualizacionCapitulo> capitulosVistos;
 	@ManyToMany
 	private Map<Serie, VisualizacionSerie> visualizacionesSeries;

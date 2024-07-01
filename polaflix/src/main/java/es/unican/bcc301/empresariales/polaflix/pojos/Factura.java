@@ -3,6 +3,7 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 import java.util.Set;
 import java.util.TreeSet;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,10 +20,13 @@ public class Factura implements Comparable<Factura> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@JsonView(JsonViews.FacturaView.class)
 	private double importeTotal;
+	@JsonView(JsonViews.FacturaView.class)
 	private Date fecha;
 
 	@ElementCollection
+	@JsonView(JsonViews.FacturaView.class)
 	private Set<VisualizacionCapitulo> entradasFactura;
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")

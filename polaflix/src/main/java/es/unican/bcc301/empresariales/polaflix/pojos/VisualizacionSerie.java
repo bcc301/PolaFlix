@@ -1,5 +1,6 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
