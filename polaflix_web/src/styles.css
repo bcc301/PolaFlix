@@ -1,0 +1,148 @@
+
+/* BARRA SUPERIOR */
+.topbar {
+    background-color: rgb(82, 79, 79);
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    height: 80px;
+    padding: 0 20px;
+}
+
+.welcome-text {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 35px;
+}
+
+
+/* BARRA MENU */
+.navbar {
+    background-color: #b1adad;
+    border-bottom: 1px solid #acacac;
+    display: flex;
+    padding: 0 20px;
+}
+
+
+/* LISTA  || TODO: comprobar, algunos sobran*/
+
+
+body {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-header {
+    background-color: #dadada;
+    border: black; 
+}
+
+.chapter-title {
+    width: 20%;
+    display: inline-block;
+    text-align: left;
+}
+
+.chapter-view {
+    width: 100px;
+    padding-left: 20px;
+    display: inline-block;
+    text-align: left;
+}
+
+.table-responsive {
+    text-align: center;
+    font-size: 18px;
+    padding: 30px;
+}
+
+.series-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.series-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-button {
+    margin-left: 10px;
+}
+
+.total-amount {
+    padding: 5px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: aquamarine;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    display: block;
+    float: right;
+}
+
+.add-button {
+    width: 80px;
+    padding-left: 20px;
+    display: inline-block;
+    text-align: left;
+}
+
+
+
+.chapters-container {
+    margin: 40px;
+}
+
+.seasons-container {
+    align-content: center;
+    margin: 40px;
+}
+
+footer {
+    background-color: rgb(82, 79, 79);
+    color: #fff;
+    padding: 30px 0;
+    margin-top: auto;
+}
+
+.serie-title {
+    width: 20%;
+    display: inline-block;
+    text-align: left;
+}
+
+.ngdialog.custom-dialog .ngdialog-content {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.series-list li {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+}
+
+.card {
+    margin-top: 5em;
+}
+
+.category-name {
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-weight: bold;
+    font-size: px;
+}
+
+.card {
+    margin: 2em;
+}
+

@@ -1,0 +1,8 @@
+<div *ngIf="mensajeError" class="alert alert-danger">
+    {{ mensajeError }}
+</div>
+
+<app-home-series titulo="Serires Empezadas" [series]="seriesEmpezadas" [usuarioId]="usuarioId"></app-home-series>
+<app-home-series titulo="Series Terminadas" [series]="seriesTerminadas" [usuarioId]="usuarioId"></app-home-series>
+<app-home-series titulo="Series Pendientes" [series]="seriesPendientes" [usuarioId]="usuarioId"></app-home-series>
+  

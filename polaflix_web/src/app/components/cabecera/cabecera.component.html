@@ -1,0 +1,32 @@
+
+<!-- BARRA SUPEIOR -->
+<div class="topbar">
+  <div class="welcome-text">BIENVENIDO {{ nombreUsuario }}</div>
+</div>
+
+<!-- BARRA MENU -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/usuarios', usuarioId, 'home']">Inicio</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/usuarios', usuarioId, 'series']">Agregar Serie</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/usuarios', usuarioId, 'facturas']">Ver Cargos</a>
+      </li>
+
+    </ul>
+
+    
+  </div>
+
+</nav>

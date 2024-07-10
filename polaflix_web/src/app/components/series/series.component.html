@@ -1,0 +1,74 @@
+<div class="card">
+
+    <div class="card-header">
+        <div *ngIf="mensajeError" class="alert alert-danger">
+            {{ mensajeError }}
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <ul class="pagination">
+                    <li class="page-item" *ngFor="let letter of abecedario"
+                        [ngClass]="{ 'active': inicialEscogida == letter }">
+                        <a href="javascript:void(0)" class="page-link" (click)="escogerInicial(letter)">{{ letter }}</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-link" (click)="limpiarFiltro()">
+                    <i class="fas fa-filter"></i> Borrar filtro
+                </button>
+            </div>
+
+            <div class="col-md-3">
+                <form class="form-inline float-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="textoBusqueda"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="search-button">
+                        <button type="submit" class="btn btn-primary" (click)="buscar(textoBusqueda)">Buscar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="card-body">
+
+        <div class="seriesList">
+            <ul class="list-group">
+
+                <li class="list-group-item" *ngFor="let serie of series">
+
+                    <a class="serie-title" (click)="mostrarDescripcion(serie)"
+                        [ngClass]="{ 'font-weight-bold': serie.exactMatch }">
+                        {{ serie.title }}
+                    </a>
+
+                    <button class="btn btn-primary" (click)="anadirSeriePendiente(serie)">
+                        Agregar
+                    </button> 
+
+                    <div class="descripcion" [hidden]="!descripcion[serie.id]">
+                        {{ serie.sinopsis }}
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="noSeries" *ngIf="series.length === 0">
+            No se ha encontrado ninguna serie.
+        </div>
+
+    </div>
+
+
+</div>
