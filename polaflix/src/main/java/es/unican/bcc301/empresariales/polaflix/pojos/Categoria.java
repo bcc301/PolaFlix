@@ -1,5 +1,7 @@
 package es.unican.bcc301.empresariales.polaflix.pojos;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

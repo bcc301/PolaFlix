@@ -3,6 +3,8 @@ package es.unican.bcc301.empresariales.polaflix.pojos;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;

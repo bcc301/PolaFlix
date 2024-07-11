@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;

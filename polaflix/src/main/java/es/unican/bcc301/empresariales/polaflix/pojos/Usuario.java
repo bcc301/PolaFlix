@@ -8,6 +8,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -206,7 +209,7 @@ public class Usuario {
 		return null;
 	}
 
-	// obtener las visualizaciones de una serie mediante su ultimo capitulo //TODO: repaso
+	// obtener las visualizaciones de una serie mediante su ultimo capitulo
 	public VisualizacionSerie getSerieVisualizaciones(Serie serie) {
 		return this.visualizacionesSeries.get(serie);
 	}

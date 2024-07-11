@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
 import jakarta.persistence.Embeddable;
 
