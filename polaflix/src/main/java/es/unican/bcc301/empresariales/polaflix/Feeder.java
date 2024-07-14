@@ -1,18 +1,24 @@
 package es.unican.bcc301.empresariales.polaflix;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
 import es.unican.bcc301.empresariales.polaflix.pojos.Capitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.Categoria;
 import es.unican.bcc301.empresariales.polaflix.pojos.CuentaBancaria;
+import es.unican.bcc301.empresariales.polaflix.pojos.Factura;
 import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Temporada;
 import es.unican.bcc301.empresariales.polaflix.pojos.TrabajadorSerie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Usuario;
+import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionCapitulo;
 import es.unican.bcc301.empresariales.polaflix.repositorios.CategoriaRepositorio;
 import es.unican.bcc301.empresariales.polaflix.repositorios.SerieRepositorio;
 import es.unican.bcc301.empresariales.polaflix.repositorios.UsuarioRepositorio;
@@ -33,8 +39,7 @@ public class Feeder implements CommandLineRunner{
     public void run(String... args) throws Exception {
         
         // rellenar la base de datos
-        inyectarUsuarios();
-        inyectarSeries();
+        inyectarSeriesyUsuarios();
         inyectarCategorias();
 
     }
@@ -52,7 +57,7 @@ public class Feeder implements CommandLineRunner{
         categoriasRepo.save(gold);
     }
 
-    private void inyectarSeries() {
+    private void inyectarSeriesyUsuarios() {
         
         // obtener las categorias del repositorio
         Categoria estandar = categoriasRepo.findByNombre("Estandar");
@@ -61,8 +66,8 @@ public class Feeder implements CommandLineRunner{
 
         // creacion de las series
         Serie s1 = new Serie("Aqui No Hay Quien Viva", 4, "Serie de humor española.", estandar);
-        Serie s2 = new Serie("Mundo Maldini", 6, "Programa futbolístico.", silver);
-        Serie s3 = new Serie("El Chiringuito de Juzgones", 8, "Programa de humor.", gold);
+        Serie s2 = new Serie("Mundo Maldini", 1, "Programa futbolístico.", silver);
+        Serie s3 = new Serie("El Chiringuito de Juzgones", 3, "Programa de humor.", gold);
 
         // anadir temporadas a la serie 1
         Temporada t1s1 = new Temporada(1, s1);
@@ -135,14 +140,15 @@ public class Feeder implements CommandLineRunner{
         s3.anadirActor(act5);
         s3.anadirActor(act6);
 
+        s1.setCategoria(estandar);
+        s2.setCategoria(silver);
+        s3.setCategoria(gold);
+
         // almacenar las series en el repositorio
         seriesRepo.save(s1);
         seriesRepo.save(s2);
         seriesRepo.save(s3);
-    }   
 
-    private void inyectarUsuarios() {
-        
         // cuentas bancarias para los usuarios
         CuentaBancaria b1 = new CuentaBancaria("ES34 132412312341234");
         CuentaBancaria b2 = new CuentaBancaria("ES34 6798679867986798");
@@ -153,11 +159,51 @@ public class Feeder implements CommandLineRunner{
         Usuario u2 = new Usuario("lamine@unican.es", "Lamine Yamal", null, b2, false);
         Usuario u3 = new Usuario("marc@unican.es", "Marc Cucurella", null, b3, false);
 
+        // meter series a los usuarios
+        u1.anadirSerieAEmpezadas(s1);
+        u1.anadirSerieAEmpezadas(s2);
+        u1.anadirSerieAPendientes(s3);
+
+        u2.anadirSerieAEmpezadas(s1);
+        u2.anadirSerieAPendientes(s2);
+        u2.anadirSerieATerminadas(s3);
+
+        u3.anadirSerieAPendientes(s1);
+        u3.anadirSerieAPendientes(s2);
+
+        // ver capitulos
+        /*u1.verCapitulo(cap1t1s1);
+        u1.verCapitulo(cap2t1s1);
+
+        u2.verCapitulo(cap1t1s3);
+        u2.verCapitulo(cap1t2s3);
+        u2.verCapitulo(cap1t2s3);
+
+        u3.verCapitulo(cap1t1s3);
+        u3.verCapitulo(cap1t2s3);
+        u3.verCapitulo(cap1t2s3);*/
+
+        // anadir facturas a los usuarios
+        Factura f1 = new Factura(fecha1, u1);
+        LocalDate fecha = LocalDate.now();
+        VisualizacionCapitulo v1 = new VisualizacionCapitulo(fecha, 1, 1.5, 1, f1, u1);
+        VisualizacionCapitulo v2 = new VisualizacionCapitulo(fecha, 1, 1.5, 2, f1, u1);
+        f1.anadirVisualizacionCapituloAFactura(v1);
+        f1.anadirVisualizacionCapituloAFactura(v2);
+        Factura f2 = new Factura(fecha2, u2);
+        VisualizacionCapitulo v3 = new VisualizacionCapitulo(fecha, 1, 1.0, 1, f2, u2);
+        f2.anadirVisualizacionCapituloAFactura(v3);
+        Factura f3 = new Factura(fecha3, u3);
+        VisualizacionCapitulo v4 = new VisualizacionCapitulo(fecha, 1, 0.5, 1, f3, u3);
+        f3.anadirVisualizacionCapituloAFactura(v4);
+
+        u1.anadirFactura(f1);
+        u2.anadirFactura(f2);
+        u3.anadirFactura(f3);
+
         // almacenar los usuarios en el repositorio
         usuariosRepo.save(u1);
         usuariosRepo.save(u2);
         usuariosRepo.save(u3);
-    }
-
-    
+    }   
 }

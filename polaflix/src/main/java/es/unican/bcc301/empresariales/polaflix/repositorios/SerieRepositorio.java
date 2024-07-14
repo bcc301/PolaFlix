@@ -11,4 +11,5 @@ import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
 public interface SerieRepositorio extends JpaRepository<Serie, Long> {
     
     List<Serie> findByInicial(char inicial);
+
 }

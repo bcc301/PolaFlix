@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.bcc301.empresariales.polaflix.rest.JsonViews;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 import java.sql.Date;
 
@@ -27,7 +29,7 @@ public class Factura implements Comparable<Factura> {
 	@JsonView(JsonViews.FacturaView.class)
 	private Date fecha;
 
-	@ElementCollection
+	@OneToMany (mappedBy = "factura", cascade = CascadeType.ALL) // aqui habia @ElementCollection
 	@JsonView(JsonViews.FacturaView.class)
 	private Set<VisualizacionCapitulo> entradasFactura;
 	@ManyToOne
@@ -35,6 +37,7 @@ public class Factura implements Comparable<Factura> {
 	private Usuario usuario;
 
 	public Factura() { }
+	
 	public Factura(Date fecha, Usuario usuario) {
 		this.fecha = fecha;
 		this.usuario = usuario;

@@ -42,12 +42,12 @@ public class Capitulo implements Comparable<Capitulo> {
 	// metodos auxiliares
     
 	public Categoria getCategoria() {
-		return this.getTemporada().getSerie().getCategoria();
+		return this.getSerie().getCategoria();
 	}
 
 	
 	public Serie getSerie() {
-		return this.getTemporada().getSerie();
+		return this.temporada.getSerie();
 	}
 
 

@@ -30,6 +30,8 @@ public class VisualizacionCapitulo implements Comparable<VisualizacionCapitulo> 
 	@ManyToOne
 	private Usuario usuario;
 
+	public VisualizacionCapitulo() { }
+
 	public VisualizacionCapitulo(LocalDate fechaVisualizacion, int numTemporada, double precioVisualizacion, int numCapitulo, Factura factura,
 			Usuario usuario) {
 		this.fechaVisualizacion = fechaVisualizacion;

@@ -134,6 +134,14 @@ public class Usuario {
 		this.seriesTerminadas.add(serieTerminada);
 	}
 
+	// anadir factura a un usuario
+	public void anadirFactura(Factura f) {
+
+		if (f != null) {
+			this.facturas.add(f);
+		}
+	}
+
 
 	// metodo para actualizar la informacion necesaria cuando se vea un capitulo
 	public void verCapitulo(Capitulo capVisto) {
@@ -155,10 +163,12 @@ public class Usuario {
 		Temporada tempCapVisto = capVisto.getTemporada();
 		int numCapVisto = capVisto.getNumCapitulo();
 
+		double precio = serieCapVisto.getCategoria().getPrecio();
+
 
 		// crear la visualizacion del capitulo
 		VisualizacionCapitulo visualizacionCap = new VisualizacionCapitulo(LocalDate.now(), 
-		tempCapVisto.getNumTemporada(), capVisto.getCategoria().getPrecio(), numCapVisto, 
+		tempCapVisto.getNumTemporada(), precio, numCapVisto, 
 				this.getFacturaActual(fechaUltFactura), this);
 		
 		// anadir la visualizacion a capitulos vistos del usuario

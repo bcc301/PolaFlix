@@ -1,8 +1,10 @@
 package es.unican.bcc301.empresariales.polaflix.rest;
 
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +18,7 @@ import es.unican.bcc301.empresariales.polaflix.pojos.Capitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.Factura;
 import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Usuario;
+import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionCapitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.VisualizacionSerie;
 import es.unican.bcc301.empresariales.polaflix.repositorios.SerieRepositorio;
 import es.unican.bcc301.empresariales.polaflix.repositorios.UsuarioRepositorio;
@@ -70,15 +73,15 @@ public class UsuarioController {
     }
 
     // ver capitulo
-    @PutMapping(value = "/{id}/views/serie/{idSerie}/season/{numSeason}/chapter/{numChapter}")
+    @PutMapping(value = "/{id}/capitulos-vistos/serie/{serieId}/temporada/{numTemporada}/capitulos/{numCapitulo}")
     @JsonView(JsonViews.VisualizacionCapituloView.class)
     @Transactional
-    public ResponseEntity<VisualizacionSerie> verCapitulo(@PathVariable("id") long id, @PathVariable("idSerie") long idSerie, 
+    public ResponseEntity<VisualizacionSerie> verCapitulo(@PathVariable("id") long id, @PathVariable("serieId") long serieId, 
         @PathVariable("numTemporada") int numTemporada, @PathVariable("numCapitulo") int numCapitulo) {
 
             ResponseEntity<VisualizacionSerie> respuesta;
             Optional<Usuario> usuario = ur.findById(id);
-            Optional<Serie> serie = sr.findById(idSerie);
+            Optional<Serie> serie = sr.findById(serieId);
 
             if (!(usuario.isPresent())) {
                 return ResponseEntity.notFound().build();
@@ -145,7 +148,7 @@ public class UsuarioController {
     // obtener ultimo capitulo visto de una serie
     @GetMapping(value = "/{id}/ult-cap-visto/{serieId}")
     @JsonView(JsonViews.CapituloView.class)
-    public ResponseEntity<Capitulo> getLastChapterViewed(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
+    public ResponseEntity<Capitulo> getUltCapVisto(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
         
         Optional<Usuario> ususario = ur.findById(id);
         ResponseEntity<Capitulo> respuesta;
@@ -163,6 +166,24 @@ public class UsuarioController {
         }
 
         return respuesta;
+    }
+
+    // obtener las visualizaciones de un usuario
+    @GetMapping(value = "/{id}/capitulos-vistos")
+    @JsonView(JsonViews.VisualizacionesView.class)
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<Map<Serie, VisualizacionCapitulo>> getViews(@PathVariable("id") long id) {
+
+        ResponseEntity<Map<Serie, VisualizacionCapitulo>> result;
+        Optional<Usuario> u = ur.findById(id);
+
+        if (!(u.isPresent())) {
+            return ResponseEntity.notFound().build();
+        } else {
+            result = ResponseEntity.ok(u.get().getCapitulosVistos());
+        }
+
+        return result;
     }
     
     public UsuarioRepositorio getUr() {

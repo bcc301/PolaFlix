@@ -30,6 +30,8 @@ public class Temporada implements Comparable<Temporada> {
     @JsonView(JsonViews.SerieView.class)
     private Set<Capitulo> capitulos;
 
+    public Temporada() { }
+
     public Temporada(int numTemporada, Serie serie) {
         this.numTemporada = numTemporada;
         this.serie = serie;
