@@ -19,10 +19,13 @@ public class TrabajadorSerie {
     private Date fechaNacimiento;
     private int edad;
 
+
+    public TrabajadorSerie () { }
+
     public TrabajadorSerie(String nombre, Date fechaNacimiento) {
         this.nombreTrabajador = nombre;
         this.fechaNacimiento = fechaNacimiento;
-        edad = calculaEdad();
+        //edad = calculaEdad(); //TODO descomentar con datos reales
     }
 
 

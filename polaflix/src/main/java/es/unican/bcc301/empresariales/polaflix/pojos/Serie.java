@@ -86,6 +86,14 @@ public class Serie implements Comparable<Serie> {
 		return null;
 	}
 
+	// anadir temporada a la serie
+	public void anadirTemporada(Temporada temp) {
+		
+		if (temp != null) {
+			this.temporadas.add(temp);
+		}
+	}
+
 	@Override
 	public int compareTo(Serie s) {
 		return Long.compare(this.id, s.getId());

@@ -1,12 +1,17 @@
 package es.unican.bcc301.empresariales.polaflix;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import es.unican.bcc301.empresariales.polaflix.pojos.Capitulo;
 import es.unican.bcc301.empresariales.polaflix.pojos.Categoria;
 import es.unican.bcc301.empresariales.polaflix.pojos.CuentaBancaria;
 import es.unican.bcc301.empresariales.polaflix.pojos.Serie;
+import es.unican.bcc301.empresariales.polaflix.pojos.Temporada;
+import es.unican.bcc301.empresariales.polaflix.pojos.TrabajadorSerie;
 import es.unican.bcc301.empresariales.polaflix.pojos.Usuario;
 import es.unican.bcc301.empresariales.polaflix.repositorios.CategoriaRepositorio;
 import es.unican.bcc301.empresariales.polaflix.repositorios.SerieRepositorio;
@@ -59,11 +64,76 @@ public class Feeder implements CommandLineRunner{
         Serie s2 = new Serie("Mundo Maldini", 6, "Programa futbolístico.", silver);
         Serie s3 = new Serie("El Chiringuito de Juzgones", 8, "Programa de humor.", gold);
 
-        // TODO: anadir temporadas a las series 
+        // anadir temporadas a la serie 1
+        Temporada t1s1 = new Temporada(1, s1);
+        Temporada t2s1 = new Temporada(2, s1);
+        s1.anadirTemporada(t1s1);
+        s1.anadirTemporada(t2s1);
 
-        // TODO: anadir capitulos a las temporadas 
+        // anadir capitulos a las temporadas de la serie 1
+        Capitulo cap1t1s1 = new Capitulo("Capitulo 1, T1", 1, "www.enlace-cap1t1s1.es", "Capitulo introductorio de la serie 1", t1s1);
+        Capitulo cap2t1s1 = new Capitulo("Capitulo 2, T1", 2, "www.enlace-cap2t1s1.es", "Capitulo final de la primera temporada", t1s1);
+        Capitulo cap1t2s1 = new Capitulo("Capitulo 1, T2", 1, "www.enlace-cap1t2s1.es", "Primer capitulo de la segunda temporada.", t2s1);
+        Capitulo cap2t2s1 = new Capitulo("Capitulo 2, T2", 2, "www.enlace-cap2t2s1.es", "Capitulo final.", t2s1);
+        t1s1.anadirCapitulo(cap1t1s1);
+        t1s1.anadirCapitulo(cap2t1s1);
+        t2s1.anadirCapitulo(cap1t2s1);
+        t2s1.anadirCapitulo(cap2t2s1);
 
-        // TODO: anadir creadores y actores a las series
+        // anadir temporadas a la serie 2
+        Temporada t1s2 = new Temporada(1, s2);
+        s2.anadirTemporada(t1s2);
+
+        // anadir capitulos a la temporada de la serie 2
+        Capitulo cap1t1s2 = new Capitulo("Capitulo 1", 1, "www.enlace-cap1t1s2.es", "Capitulo introductorio de la serie 2", t1s2);
+        Capitulo cap2t1s2 = new Capitulo("Capitulo 2", 2, "www.enlace-cap2t1s2.es", "Capitulo desarrollo de la serie 2", t1s2);
+        Capitulo cap3t1s2 = new Capitulo("Capitulo 3", 3, "www.enlace-cap3t1s2.es", "Capitulo final de la serie 2", t1s2);
+        t1s2.anadirCapitulo(cap1t1s2);
+        t1s2.anadirCapitulo(cap2t1s2);
+        t1s2.anadirCapitulo(cap3t1s2);
+
+        // anadir temporadas a la serie 3
+        Temporada t1s3 = new Temporada(1, s3);
+        Temporada t2s3 = new Temporada(2, s3);
+        Temporada t3s3 = new Temporada(3, s3);
+        s3.anadirTemporada(t1s3);
+        s3.anadirTemporada(t2s3);
+        s3.anadirTemporada(t3s3);
+
+        // anadir capitulos a las temporadas de la serie 3
+        Capitulo cap1t1s3 = new Capitulo("Capitulo 1, T1", 1, "www.enlace-cap1t1s3.es", "Capitulo completado: primera temporada.", t1s3);
+        Capitulo cap1t2s3 = new Capitulo("Capitulo 1, T2", 1, "www.enlace-cap1t2s3.es", "Capitulo completado: segunda temporada.", t2s3);
+        Capitulo cap1t3s3 = new Capitulo("Capitulo 1, T3", 1, "www.enlace-cap1t3s3.es", "Capitulo completado: tercera temporada.", t3s3);
+        t1s3.anadirCapitulo(cap1t1s3);
+        t2s3.anadirCapitulo(cap1t2s3);
+        t3s3.anadirCapitulo(cap1t3s3);
+
+        // anadir creadores y actores a las series
+        Date fecha1 = new Date(1245);
+        Date fecha2 = new Date(54321);
+        Date fecha3 = new Date(6789);
+
+        TrabajadorSerie creador1 = new TrabajadorSerie("Nacho Cano", fecha1);
+        TrabajadorSerie creador2 = new TrabajadorSerie("Daniel Carvajal", fecha2);
+        TrabajadorSerie creador3 = new TrabajadorSerie("Marco Carola", fecha3);
+        TrabajadorSerie act1 = new TrabajadorSerie("José Pedrerol", fecha1);
+        TrabajadorSerie act2 = new TrabajadorSerie("Alaska", fecha2);
+        TrabajadorSerie act3 = new TrabajadorSerie("Vinisiu JR", fecha3);
+        TrabajadorSerie act4 = new TrabajadorSerie("Ismael Torron", fecha1);
+        TrabajadorSerie act5 = new TrabajadorSerie("Jose Luis T.", fecha2);
+        TrabajadorSerie act6 = new TrabajadorSerie("Enrique Setien", fecha3);
+
+        s1.anadirCreador(creador1);
+        s1.anadirActor(act1);
+        s1.anadirActor(act2);
+
+        s2.anadirCreador(creador2);
+        s2.anadirActor(act3);
+        s2.anadirActor(act4);
+
+        s3.anadirCreador(creador3);
+        s3.anadirActor(act5);
+        s3.anadirActor(act6);
 
         // almacenar las series en el repositorio
         seriesRepo.save(s1);

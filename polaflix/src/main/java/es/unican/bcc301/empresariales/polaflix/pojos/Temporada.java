@@ -42,6 +42,7 @@ public class Temporada implements Comparable<Temporada> {
 
     // metodo para anadir un capitulo a la temporada
     public void anadirCapitulo(Capitulo c) {
+        
         if (c != null) {
             this.capitulos.add(c);
         }
