@@ -17,7 +17,7 @@ export class SeriesComponent {
   textoBusqueda: string = '';
   
   seriesPendientes: any[] = [];
-  series: any[] = [];
+  series: any[] = []; // series filtradas
   allSeries: any[] = [];
   
   usuarioId: number = 1;
@@ -102,7 +102,7 @@ export class SeriesComponent {
     return this.seriesPendientes.some((ps: { id: any; }) => ps.id === serie.id);
   }
 
-  // coger la letra inicial de la serie
+  // filtrar segun la letra inicial
   filtrar(inicial: string): void {
 
     this.inicialEscogida = inicial;
