@@ -10,12 +10,12 @@
 
             
             <ng-container *ngIf="series.length === 0; else seriesItems">
-                <p>No hay series {{ titulo.toLowerCase() }}</p>
+                <p>No hay {{ titulo.toLowerCase() }}</p>
             </ng-container>
 
             <ng-template #seriesItems>
                 <li class="list-group-item" *ngFor="let serie of series">
-                    <a [routerLink]="['/usuarios', usuarioId, 'serie', serie.id]">{{ serie.title }}</a>
+                    <a> {{serie.nombreSerie}} </a>
                 </li>
             </ng-template>
 

@@ -103,7 +103,7 @@ export class SeriesComponent {
   }
 
   // coger la letra inicial de la serie
-  escogerInicial(inicial: string): void {
+  filtrar(inicial: string): void {
 
     this.inicialEscogida = inicial;
     this.series = this.allSeries.filter(serie => serie.titulo.charAt(0) === inicial);

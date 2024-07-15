@@ -33,6 +33,7 @@ public class SerieController {
     // obtener serie mediante id 
     @GetMapping(value = "/{id}")
     @JsonView(JsonViews.SerieView.class)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Serie> obtenerSerieId(@PathVariable("id") long id) {
         Optional<Serie> serie = sr.findById(id);
         ResponseEntity<Serie> respuesta;
@@ -49,6 +50,7 @@ public class SerieController {
     // obtener serie mediante inicial
     @GetMapping(params = "inicial")
     @JsonView(JsonViews.SerieView.class)
+    @CrossOrigin(origins = "*")
     public Iterable<Serie> obtenerSerieInicial(@RequestParam("inicial") char inicial) {
         return sr.findByInicial(inicial);
     }

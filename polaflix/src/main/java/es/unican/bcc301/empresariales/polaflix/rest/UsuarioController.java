@@ -41,6 +41,7 @@ public class UsuarioController {
     // buscar usuario por id
     @GetMapping(value = "/{id}")
     @JsonView(JsonViews.UsuarioView.class)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Usuario> buscarUsuarioId(@PathVariable("id") long id) {
 
         Optional<Usuario> usuario = ur.findById(id);
@@ -58,6 +59,7 @@ public class UsuarioController {
     // buscar usuario por email
     @GetMapping(params = "email")
     @JsonView(JsonViews.UsuarioView.class)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Usuario> buscarUsuarioEmail(@RequestParam("email") String email) {
         
         Usuario usuario = ur.findByEmail(email);
@@ -75,6 +77,7 @@ public class UsuarioController {
     // ver capitulo
     @PutMapping(value = "/{id}/capitulos-vistos/serie/{serieId}/temporada/{numTemporada}/capitulos/{numCapitulo}")
     @JsonView(JsonViews.VisualizacionCapituloView.class)
+    @CrossOrigin(origins = "*")
     @Transactional
     public ResponseEntity<VisualizacionSerie> verCapitulo(@PathVariable("id") long id, @PathVariable("serieId") long serieId, 
         @PathVariable("numTemporada") int numTemporada, @PathVariable("numCapitulo") int numCapitulo) {
@@ -106,6 +109,7 @@ public class UsuarioController {
     // anadir serie a lista pendientes
     @PutMapping(value = "/{id}/series-pendientes/{serieId}")
     @JsonView(JsonViews.UsuarioView.class)
+    @CrossOrigin(origins = "*")
     @Transactional
     public ResponseEntity<Usuario> anadirSerieAPendientes(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
 
@@ -131,6 +135,7 @@ public class UsuarioController {
     // obtener facturas
     @GetMapping(value = "/{id}/facturas")
     @JsonView(JsonViews.FacturaView.class)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Iterable<Factura>> obtenerFacturas(@PathVariable("id") long id) {
         
         Optional<Usuario> usuario = ur.findById(id);
@@ -148,6 +153,7 @@ public class UsuarioController {
     // obtener ultimo capitulo visto de una serie
     @GetMapping(value = "/{id}/ult-cap-visto/{serieId}")
     @JsonView(JsonViews.CapituloView.class)
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Capitulo> getUltCapVisto(@PathVariable("id") long id, @PathVariable("serieId") long serieId) {
         
         Optional<Usuario> ususario = ur.findById(id);
